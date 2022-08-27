@@ -21,8 +21,8 @@ services:
       - "traefik.enable=true"
       - "traefik.http.routers.app.rule=Host(`coin.it-apostol.ru`)"
       - "traefik.http.routers.app.entrypoints=https"
-      - "traefik.http.routers.traefik.tls=true"
-      - "traefik.http.routers.traefik.tls.certresolver=letsEncrypt"
+      - "traefik.http.routers.app.tls=true"
+      - "traefik.http.routers.app.tls.certresolver=letsEncrypt"
       - "traefik.http.services.traefik-traefik.loadbalancer.server.port=888"
   traefik:
     container_name: traefik
@@ -37,7 +37,7 @@ services:
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.traefik.service=api@internal"
-      - "traefik.http.routers.traefik.rule=Host(`traefik.localhost`)"
+      - "traefik.http.routers.traefik.rule=Host(`traefik.it-apostol.ru`)"
       - "traefik.http.routers.app.entrypoints=http"
       - "traefik.http.middlewares.auth.basicauth.users=admin:$$apr1$$dd1Ad8v4$$x.JNsDB42EWADIekeAvHR1"
       - "traefik.http.routers.traefik.middlewares=auth@docker"
