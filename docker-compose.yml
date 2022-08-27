@@ -40,5 +40,3 @@ services:
       - "traefik.http.middlewares.auth.basicauth.users=admin:$$apr1$$dd1Ad8v4$$x.JNsDB42EWADIekeAvHR1"
       - "traefik.http.routers.traefik.middlewares=auth@docker"
 
-log:
-  level: DEBUG
