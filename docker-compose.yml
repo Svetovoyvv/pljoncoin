@@ -1,0 +1,27 @@
+version: "3.9"
+
+services:
+  base:
+    image: mysql:latest
+    environment:
+      - MYSQL_ROOT_PASSWORD=test_secret
+      - MYSQL_DATABASE=test
+    restart: always
+  app:
+    build: ./api/
+    depends_on:
+      - base
+    environment:
+      - SQL_CONNECTION_URL=mysql://root:test_secret@base:3306/test
+    command: "python3.10 -m uvicorn main:app --reload --port 8080 --host 0.0.0.0"
+  nginx:
+    image: nginx:latest
+    ports:
+      - "80:80"
+      - "443:443"
+    depends_on:
+      - app
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf
+    environment:
+      - DOMAIN=coin.it-apostol.ru

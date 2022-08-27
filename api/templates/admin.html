@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin page</title>
+    <link rel="stylesheet" href="/static/css/admin.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@700&family=Inter:wght@400;500;700&family=Nunito+Sans&display=swap" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="/static/js/admin.js"></script>
+</head>
+<body>
+    <header>
+        <ul class="nav">
+            <li class="logo">
+                <a href="">
+                    <img src="/static/img/логотип.svg" alt="" class="logo">
+                    <span class="logo">pljoncoin</span>
+                </a>
+            </li>
+            <li class="logo">
+                <a href="">
+                    <span class="acc">@{{ user.username }}</span>
+                    <img src="/static/img/картинка_челика.png" alt="" class="logo">
+                   
+                </a>
+            </li>
+        </ul>
+        </header>
+        <section class="section-main">
+            <h1>Список всех пользователей ({{ users|length }})</h1>
+            <div class="search-block">
+                <div class="search-logo">
+                    <img src="/static/img/search.svg" alt="">
+                </div>
+                <input id="input_search" type="text" placeholder="Введите никнейм пользователя">
+                
+            </div>
+        <div class="table_div">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Пользователь</th>
+                        <th>Почтовый адрес</th>
+                        <th>Дата регистрации</th>
+                        <th>Администратор</th>
+                        <th>История запросов</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for u in users %}
+                    <tr class="table_row">
+                        <td>{{ u.username }} ({{ u.id }})</td>
+                        <td>{{ u.email }}</td>
+                        <td>{{ u.register_date.date() }}</td>
+                        <td class="{{ "not_" if not u.is_admin else "" }}admin"></td>
+                        <td class="history">
+                            <button class="history_button">История</button>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+</section>
+</body>
+</html>

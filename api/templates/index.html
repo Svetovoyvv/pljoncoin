@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="/static/css/index.css">
+    <title>PljonCoin</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="/static/js/main.js"></script>
+</head>
+<body>
+    <section class="section-main">
+        <header>
+            <ul class="nav">
+                <li class="logo">
+                    <a href="/">
+                        <img src="/static/img/logo.svg" alt="" class="logo">
+                        <span class="logo">pljoncoin</span>
+                    </a>
+                </li>
+                <li class="account">
+                    {% if user %}
+                        <a href="#"><b>@{{ user.username }}</b></a>
+                    {% else %}
+                        <a href="#" class="auth">Авторизация</a>
+                        <a href="/register" class="register">Регистрация</a>
+                    {% endif %}
+                </li>
+            </ul>
+        </header>
+        <h1>PljonCoin</h1>
+        <div class="search-block">
+            <div class="search-logo">
+                <img src="/static/img/search.svg" alt="">
+            </div>
+            <input type="text" placeholder="Поиск транзакций, адресов, блоков">
+            <div class="search-btn">
+                <a href="">ПОИСК</a>
+            </div>
+        </div>
+    </section>
+    <div class="popup-bg hide-popup" id="popup">
+        <div class="popup-parent">
+            <div class="popup">
+            <h1>Авторизация</h1>
+            <h2>Войдите в свою учетную запись, используя логин и пароль</h2>
+            <form id="login_form" action="">
+                <div>
+                    <span>Почта</span>
+                    <input required type="email">
+                </div>
+                <div>
+                    <span>Пароль</span>
+                    <input required type="password">
+                </div>
+                <button id="login_btn">Войти</button>
+                <span class="description">У вас нет аккаунта? <a href="/register">Зарегистрируйтесь</a></span>
+
+            </form>
+        </div>
+    </div>
+    </div>
+    <section class="section-price">
+        <div class="price-block">
+            <div class="row head">
+                <span>Название</span><span>Цена(руб)</span><span>Цена (доллар)</span><span>Цена (btc)</span>
+            </div>
+            <div class="row">
+                <span>Bitcoin</span>
+                <span>{{ format_int((course[0]*usd)|int) }}</span>
+                <span>{{ format_int(course[0]|int) }}</span>
+                <span>1</span>
+            </div>
+            <div class="row">
+                <span>Ethereum</span>
+                <span>{{ format_int((course[1]*usd)|int) }}</span>
+                <span>{{ format_int(course[1]|int) }}</span>
+                <span>{{ '%0.2f'|format(course[1] / course[0]) }}</span>
+            </div>
+        </div>
+    </section>
+    <section class="section-about">
+        <div class="about-block">
+            <h1>О нас</h1>
+            <span>
+                Наш сайт обеспечивает реализацию исследований в области анализа блокчейн транзакций криптовалют, таких как bitcoin и ethereum, что позволяет упростить расследования преступлений в сфере криптовалют.
+            </span>
+        </div>
+    </section>
+</body>
+</html>
