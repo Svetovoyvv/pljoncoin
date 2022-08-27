@@ -20,7 +20,7 @@ services:
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.app.rule=Host(`coin.it-apostol.ru`)"
-      - "traefik.http.routers.app.entrypoints=https"
+      - "traefik.http.routers.app.entrypoints=https,http"
       - "traefik.http.routers.app.tls=true"
       - "traefik.http.routers.app.tls.certresolver=letsencrypt"
       - "traefik.http.services.app.loadbalancer.server.port=8080"
@@ -35,6 +35,7 @@ services:
       - ./traefik/traefik.yml:/traefik.yml:ro
     labels:
       - "traefik.enable=true"
+      - "traefik.http.routers.traefik.entrypoints=httpf"
       - "traefik.http.routers.traefik.service=api@internal"
       - "traefik.http.routers.traefik.rule=Host(`traefik.it-apostol.ru`)"
       - "traefik.http.middlewares.auth.basicauth.users=admin:$$apr1$$dd1Ad8v4$$x.JNsDB42EWADIekeAvHR1"

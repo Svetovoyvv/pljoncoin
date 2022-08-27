@@ -5,8 +5,14 @@ api:
   dashboard: true
   
 entrypoints:
+  httpf:
+    address: ":80"
   http:
     address: ":80"
+    http:
+      redirections:
+        entryPoint:
+          to: https
   https:
     address: ":443"
 log:
@@ -16,7 +22,7 @@ certificatesResolvers:
     acme:
       email: svetovoyvv@yandex.ru
       storage: acme.json
-      caServer: "https://acme-staging-v02.api.letsencrypt.org/directory"
+      #caServer: "https://acme-staging-v02.api.letsencrypt.org/directory"
       httpChallenge:
         entryPoint: http
 
