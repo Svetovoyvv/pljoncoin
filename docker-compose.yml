@@ -22,23 +22,21 @@ services:
       - "traefik.http.routers.app.rule=Host(`coin.it-apostol.ru`)"
       - "traefik.http.routers.app.entrypoints=https"
       - "traefik.http.routers.app.tls=true"
-      - "traefik.http.routers.app.tls.certresolver=letsEncrypt"
-      - "traefik.http.services.traefik-traefik.loadbalancer.server.port=888"
+      - "traefik.http.routers.app.tls.certresolver=letsencrypt"
   traefik:
     container_name: traefik
     image: traefik:latest
     ports:
       - 80:80
-    command: --configfile=/home/traefik/traefik.yml
+    
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
-      - ./traefik/traefik.yml:/home/traefik/traefik.yml:ro
+      - ./traefik/traefik.yml:/traefik.yml:ro
       - ./traefik/acme.json:/acme.json
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.traefik.service=api@internal"
       - "traefik.http.routers.traefik.rule=Host(`traefik.it-apostol.ru`)"
-      - "traefik.http.routers.app.entrypoints=http"
       - "traefik.http.middlewares.auth.basicauth.users=admin:$$apr1$$dd1Ad8v4$$x.JNsDB42EWADIekeAvHR1"
       - "traefik.http.routers.traefik.middlewares=auth@docker"
       
