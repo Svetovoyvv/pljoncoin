@@ -1,0 +1,12 @@
+providers:
+  docker: true
+
+api:
+  dashboard: true
+  
+entrypoints:
+  http:
+    address: ":80"
+  https:
+    address: ":443"
+
