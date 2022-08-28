@@ -2,6 +2,7 @@ version: "3.9"
 
 services:
   base:
+    container_name: base
     image: mysql:latest
     environment:
       - MYSQL_ROOT_PASSWORD=test_secret
@@ -9,6 +10,7 @@ services:
     restart: always
 
   app:
+    container_name: app
     build: ./api/
     depends_on:
       - base
@@ -33,6 +35,7 @@ services:
       - "traefik.http.routers.app-docs.entrypoints=https"
       - "traefik.http.routers.app-docs.tls=true"
       - "traefik.http.routers.app-docs.tls.certresolver=letsencrypt"
+      - "traefik.http.routers.app-docs.service=app"
       - "traefik.http.services.app-docs.loadbalancer.server.port=8080"
   traefik:
     container_name: traefik
