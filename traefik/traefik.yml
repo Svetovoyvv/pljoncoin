@@ -9,8 +9,8 @@ entrypoints:
     address: ":80"
   https:
     address: ":443"
-log:
-  level: DEBUG
+#log:
+#  level: DEBUG
 certificatesResolvers:
   letsencrypt:
     acme:
