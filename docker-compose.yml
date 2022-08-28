@@ -19,10 +19,8 @@ services:
       - 8080
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.app-api.entrypoints=https"
-      - "traefik.http.routers.app-api.rule=Host(`coin.it-apostol.ru`) && Path(`/docs`, `/redocs`)"
-      - "traefik.http.routers.app-api.http.middlewares=auth@docker"
-      - "traefik.http.services.app-api.loadbalancer.server.port=8080"
+
+
       - "traefik.http.routers.app-http.entrypoints=http"
       - "traefik.http.routers.app-http.rule=Host(`coin.it-apostol.ru`)"
       - "traefik.http.routers.app-http.middlewares=redirect-https"
@@ -40,12 +38,13 @@ services:
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       - ./traefik/traefik.yml:/traefik.yml:ro
+      - ./traefik/auth.htpasswd:/auth.htpasswd:ro
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.traefik.entrypoints=http"
       - "traefik.http.routers.traefik.service=api@internal"
       - "traefik.http.routers.traefik.rule=Host(`traefik.it-apostol.ru`)"
       - "traefik.http.routers.traefik.middlewares=auth@docker"
-      - "traefik.http.middlewares.auth.basicauth.users=admin:$$apr1$$dd1Ad8v4$$x.JNsDB42EWADIekeAvHR1"
+      - "traefik.http.middlewares.auth.basicauth.usersfile=users.htpasswd"
       - "traefik.http.middlewares.redirect-https.redirectscheme.scheme=https"
 
