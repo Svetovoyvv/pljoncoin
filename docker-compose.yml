@@ -3,7 +3,7 @@ version: "3.9"
 services:
   base:
     container_name: base
-    image: mysql:latest
+    image: mysql:8
     environment:
       - MYSQL_ROOT_PASSWORD=test_secret
       - MYSQL_DATABASE=test
@@ -18,7 +18,6 @@ services:
       - base
     environment:
       - SQL_CONNECTION_URL=mysql://root:test_secret@base:3306/test
-    command: "python3.10 -m uvicorn main:app --port 8080 --host 0.0.0.0"
     expose:
       - 8080
     labels:
