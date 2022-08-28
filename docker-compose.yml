@@ -37,6 +37,7 @@ services:
       - "traefik.http.routers.app-docs.entrypoints=https"
       - "traefik.http.routers.app-docs.tls=true"
       - "traefik.http.routers.app-docs.tls.certresolver=letsencrypt"
+      - "traefik.http.routers.app-docs.middlewares=auth"
       - "traefik.http.routers.app-docs.service=app"
       - "traefik.http.services.app-docs.loadbalancer.server.port=8080"
   traefik:
