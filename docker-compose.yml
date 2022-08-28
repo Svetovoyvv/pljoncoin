@@ -45,6 +45,6 @@ services:
       - "traefik.http.routers.traefik.service=api@internal"
       - "traefik.http.routers.traefik.rule=Host(`traefik.it-apostol.ru`)"
       - "traefik.http.routers.traefik.middlewares=auth@docker"
-      - "traefik.http.middlewares.auth.basicauth.usersfile=/users.htpasswd"
+      - "traefik.http.middlewares.auth.basicauth.usersfile=/auth.htpasswd"
       - "traefik.http.middlewares.redirect-https.redirectscheme.scheme=https"
 
