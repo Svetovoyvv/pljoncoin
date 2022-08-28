@@ -19,6 +19,10 @@ services:
       - 8080
     labels:
       - "traefik.enable=true"
+      - "traefik.http.routers.app-api.entrypoints=https"
+      - "traefik.http.routers.app-api.rule=Host(`coin.it-apostol.ru`) && PathPrefix(`/docs`,`/redocs`)"
+      - "traefik.http.services.app-api.loadbalancer.server.port=8080"
+      - "traefik.http.routers.app-api.http.middlewares=auth@docker"
       - "traefik.http.routers.app-http.entrypoints=http"
       - "traefik.http.routers.app-http.rule=Host(`coin.it-apostol.ru`)"
       - "traefik.http.routers.app-http.middlewares=redirect-https"
