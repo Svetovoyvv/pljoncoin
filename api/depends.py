@@ -14,7 +14,7 @@ def get_db():
         db.close()
 
 
-def get_authorized(token: str = Cookie(..., description='Токен авторизации'),
+def get_authorized(token: str = Cookie(None, description='Токен авторизации'),
                    db: Session = Depends(get_db)) -> User:
     user = UserCRUD.get_by_token(db, token)
     if user is None:
