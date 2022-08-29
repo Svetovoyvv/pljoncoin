@@ -50,8 +50,8 @@ services:
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       - ./traefik/traefik.yml:/traefik.yml:ro
-      - ./traefik/auth.htpasswd:/auth.htpasswd:ro
-      - ./traefik/acme.json:/acme.json
+      - /home/traefik/auth.htpasswd:/auth.htpasswd:ro
+      - /home/traefik/acme.json:/acme.json
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.traefik.entrypoints=http"
