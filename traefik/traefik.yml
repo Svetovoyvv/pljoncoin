@@ -20,6 +20,7 @@ certificatesResolvers:
       httpChallenge:
         entryPoint: http
 accessLog:
-  filePath: /home/traefil/logs/access.log
+  filePath: /logs/traefik/access.log
   bufferingSize: 100
+  format: json
 

@@ -52,6 +52,7 @@ services:
       - ./traefik/traefik.yml:/traefik.yml:ro
       - /home/traefik/auth.htpasswd:/auth.htpasswd:ro
       - /home/traefik/acme.json:/acme.json
+      - /home/traefic/logs:/logs/traefik
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.traefik.entrypoints=http"
