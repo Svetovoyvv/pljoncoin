@@ -44,6 +44,8 @@ services:
   elasticsearch:
     container_name: elasticsearch
     image: elasticsearch:8.4.0
+    environment:
+      - xpack.security.enabled=false
   filebeat:
     container_name: filebeat
     image: elastic/filebeat:8.4.0
