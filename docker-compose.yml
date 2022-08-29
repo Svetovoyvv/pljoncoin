@@ -50,9 +50,6 @@ services:
   filebeat:
     container_name: filebeat
     image: elastic/filebeat:8.4.0
-    environment:
-      - setup.kibana.host=http://kibana:5601
-      - output.elasticsearch.hosts=["elasticsearch:9200"]
     volumes:
       - /home/traefik/logs:/logs/traefik
       - ./filebeat/filebeat.yml:/usr/share/filebeat/filebeat.yml
