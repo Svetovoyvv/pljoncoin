@@ -21,6 +21,6 @@ certificatesResolvers:
         entryPoint: http
 accessLog:
   filePath: /logs/traefik/access.log
-  bufferingSize: 100
+  #bufferingSize: 100
   format: json
 

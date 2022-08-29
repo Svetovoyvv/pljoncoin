@@ -1,0 +1,5 @@
+filebeat-modules:
+  - module: traefik
+    access:
+      enabled: true
+      var.paths: ["/logs/traefik/access.log*"]

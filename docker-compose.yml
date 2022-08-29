@@ -41,6 +41,31 @@ services:
       - "traefik.http.routers.app-docs.middlewares=auth"
       - "traefik.http.routers.app-docs.service=app"
       - "traefik.http.services.app-docs.loadbalancer.server.port=8080"
+  elasticsearch:
+    container_name: elasticsearch
+    image: docker.elastic.co/elasticsearch/elasticsearch:8.4.0
+  filebeat:
+    container_name: filebeat
+    image: docker.elastic.co/beats/filebeat:8.4.0
+    environment:
+      - setup.kibana.host=http://kibana:5601
+      - output.elasticsearch.hosts=["elasticsearch:9200"]
+    volumes:
+      - /home/traefik/logs:/logs/traefik
+  kibana:
+    container_name: kibana
+    image: docker.elastic.co/kibana/kibana:8.4.0
+    depends_on:
+      - elasticsearch
+    environment:
+      - ELASTICSEARCH_URL=http://elasticsearch:9200
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.kibana-http.entrypoints=http"
+      - "traefik.http.routers.kibana-http.rule=Host(`kibana.it-apostol.ru`)"
+      - "traefik.http.routers.kibana-http.service=kibana"
+      - "traefik.http.routers.kibana-http.middlewares=auth@docker"
+      - "traefik.http.services.kibana.loadbalancer.server.port=5601"
   traefik:
     container_name: traefik
     build: ./traefik/
@@ -52,7 +77,7 @@ services:
       - ./traefik/traefik.yml:/traefik.yml:ro
       - /home/traefik/auth.htpasswd:/auth.htpasswd:ro
       - /home/traefik/acme.json:/acme.json
-      - /home/traefic/logs:/logs/traefik
+      - /home/traefik/logs:/logs/traefik
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.traefik.entrypoints=http"
