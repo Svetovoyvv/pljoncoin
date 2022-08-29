@@ -47,6 +47,7 @@ class UserCRUD:
         )
         muser = cls.create(db, muser)
         muser.static_token = cls.Security.generate_token(muser.id)
+        db.commit()
         return muser
     @classmethod
     def login(cls, db: Session, user: UserLogin) -> User:
