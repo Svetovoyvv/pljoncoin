@@ -2,7 +2,7 @@ from fastapi import APIRouter, Depends, HTTPException, Response
 from models.user import UserRegister, UserPublic, UserAuthorized, UserLogin
 from depends import get_db, Session
 from models.crud import UserCRUD, AuthException
-router = APIRouter(prefix='/auth', tags=['auth'])
+router = APIRouter(prefix='/auth', tags=['Authorization'])
 
 @router.post('/register', response_model=UserPublic, responses={400: {'details': "User already exists"}})
 async def register(

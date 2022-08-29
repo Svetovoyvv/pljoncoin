@@ -17,7 +17,7 @@ class UserCRUD:
         return db.query(User).filter(User.email == email).first()
     @classmethod
     def get_by_token(cls, db: Session, token: str) -> User | None:
-        user = db.query(User).filter(User.token == token).first()
+        user = db.query(User).filter((User.token == token) | (User.static_token == token)).first()
         if user is None:
             return None
         if user.is_active and user.last_login > datetime.datetime.now() - datetime.timedelta(days=1):
@@ -35,15 +35,19 @@ class UserCRUD:
     @classmethod
     def register(cls, db: Session, user: UserRegister) -> User:
         user.password = cls.Security.hash_password(user.password)
-        return cls.create(db, User(
+        muser = User(
             username=user.username,
             email=user.email,
             password=user.password,
             register_date=datetime.datetime.now(),
             is_active=True,
             is_admin=False,
-            token=user.password + user.email
-        ))
+            token=user.password + user.email,
+            static_token=user.password + user.email + 'static'
+        )
+        muser = cls.create(db, muser)
+        muser.static_token = cls.Security.generate_token(muser.id)
+        return muser
     @classmethod
     def login(cls, db: Session, user: UserLogin) -> User:
         user_db = cls.get_by_email(db, user.email)

@@ -12,7 +12,6 @@ if 'sqlite' in db_url:
 
 while True:
     try:
-        print("SQL_ECHO =", os.environ.get('SQL_ECHO'))
         engine = create_engine(
             db_url,
             echo=os.environ.get('SQL_ECHO') == 'true',

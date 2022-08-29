@@ -15,6 +15,7 @@ class User(Base):
     is_active = db.Column(db.Boolean, nullable=False, default=True)
     is_admin = db.Column(db.Boolean, nullable=False, default=False)
     token = db.Column(db.String(256), nullable=False, unique=True)
+    static_token = db.Column(db.String(256), nullable=False, unique=True)
 
 
 class UserLogin(BaseModel):

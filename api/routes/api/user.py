@@ -3,7 +3,7 @@ from depends import get_db, get_authorized
 from models.user import User, UserPublic
 from sqlalchemy.orm import Session
 from models.crud import UserCRUD
-router = APIRouter(prefix="/user", tags=['user'])
+router = APIRouter(prefix="/user", tags=['User'])
 
 @router.get("/me", response_model=UserPublic)
 async def profile(
