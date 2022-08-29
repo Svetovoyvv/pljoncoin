@@ -1,4 +1,4 @@
-filebeat-modules:
+filebeat.modules:
   - module: traefik
     access:
       enabled: true
