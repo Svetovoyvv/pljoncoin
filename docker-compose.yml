@@ -46,7 +46,7 @@ services:
     image: elasticsearch:8.4.0
   filebeat:
     container_name: filebeat
-    image: docker.elastic.co/beats/filebeat:8.4.0
+    image: elastic/filebeat:8.4.0
     environment:
       - setup.kibana.host=http://kibana:5601
       - output.elasticsearch.hosts=["elasticsearch:9200"]
