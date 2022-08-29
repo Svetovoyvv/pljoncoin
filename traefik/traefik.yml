@@ -19,4 +19,7 @@ certificatesResolvers:
       caServer: "https://acme-staging-v02.api.letsencrypt.org/directory"
       httpChallenge:
         entryPoint: http
+accessLog:
+  filePath: /home/traefil/logs/access.log
+  bufferingSize: 100
 

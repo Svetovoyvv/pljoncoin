@@ -2,7 +2,7 @@ import datetime
 
 import sqlalchemy as db
 from . import Base
-from pydantic import BaseModel, EmailStr
+from pydantic import BaseModel, EmailStr, validator
 
 class User(Base):
     __tablename__ = 'users'
@@ -17,10 +17,10 @@ class User(Base):
     token = db.Column(db.String(256), nullable=False, unique=True)
     static_token = db.Column(db.String(256), nullable=False, unique=True)
 
-
 class UserLogin(BaseModel):
     email: EmailStr
     password: str
+
 
 class UserRegister(BaseModel):
     username: str

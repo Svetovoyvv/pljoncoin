@@ -6,6 +6,7 @@ import os
 class AuthException(Exception):
     pass
 class UserCRUD:
+    __slots__ = ()
     @classmethod
     def get_by_id(cls, db: Session, user_id: int) -> User | None:
         return db.query(User).filter(User.id == user_id).first()
