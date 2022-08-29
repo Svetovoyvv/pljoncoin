@@ -9,7 +9,7 @@ services:
       - MYSQL_DATABASE=test
     restart: always
     volumes:
-      - ./base/mysql:/var/lib/mysql
+      - /home/base/mysql:/var/lib/mysql
 
   app:
     container_name: app

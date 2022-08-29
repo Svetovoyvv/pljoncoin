@@ -29,7 +29,7 @@
   </component>
   <component name="DBNavigator.Project.DatabaseConsoleManager">
     <connection id="f1a9a5c3-c498-4ac1-9f5e-455830b5330c">
-      <console name="Connection" type="STANDARD" schema="" session="Main"><![CDATA[update users set password='bbf1e84c7dc05244482b95e12cf50c8b$605ffdb115f422a92881f71cfbf4c15d14453cfa5ed431c467e20dfa9495889e' WHERE username='test';]]></console>
+      <console name="Connection" type="STANDARD" schema="main" session="Main" />
     </connection>
   </component>
   <component name="DBNavigator.Project.DatabaseFileManager">

@@ -22,7 +22,7 @@
                 </li>
                 <li class="account">
                     {% if user %}
-                        <a href="#"><b>@{{ user.username }}</b></a>
+                        <a href="{{ "/admin" if user.is_admin else "#" }}"><b>@{{ user.username }} <span style="color: red;">{{ "admin" if user.is_admin else "" }}</span></b></a>
                     {% else %}
                         <a href="#" class="auth">Авторизация</a>
                         <a href="/register" class="register">Регистрация</a>
