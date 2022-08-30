@@ -1,11 +1,8 @@
-filebeat.modules:
-  - module: traefik
-    access:
-      enabled: true
-      var.paths: ["/logs/traefik/access.log*"]
 setup:
   kibana:
     host: http://kibana:5601
+
 output:
   elasticsearch:
     hosts: ["elasticsearch:9200"]
+

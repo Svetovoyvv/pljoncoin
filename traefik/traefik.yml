@@ -21,10 +21,9 @@ certificatesResolvers:
         entryPoint: http
 accessLog:
   filePath: /logs/traefik/access.log
-  #bufferingSize: 100
-  # format: json
-  # fields:
-  #   defaultMode: keep
-  #   headers:
-  #     defaultMode: keep
+  format: json
+  fields:
+    defaultMode: keep
+    headers:
+      defaultMode: keep
 
