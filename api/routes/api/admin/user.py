@@ -8,3 +8,5 @@ router = APIRouter(prefix='/user', tags=['User'])
 async def get_all(db: Session = Depends(get_db)) -> list[UserPublic]:
     return UserCRUD.get_all(db)
 
+
+

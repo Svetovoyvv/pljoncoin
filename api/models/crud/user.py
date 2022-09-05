@@ -1,4 +1,4 @@
-from .user import User, UserRegister, UserLogin, UserAuthorized
+from models.user import User, UserRegister, UserLogin, UserAuthorized
 from sqlalchemy.orm import Session
 from hashlib import sha256
 import datetime
@@ -57,6 +57,8 @@ class UserCRUD:
             raise AuthException('User not found')
         if not cls.Security.check_password(user_db.password, user.password):
             raise AuthException('Invalid password')
+        if not user_db.is_active:
+            raise AuthException('User authorization disabled for this account')
         user_db.last_login = datetime.datetime.now()
         user_db.token = cls.Security.generate_token(user_db.id)
         db.commit()

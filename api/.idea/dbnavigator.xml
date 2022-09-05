@@ -29,7 +29,9 @@
   </component>
   <component name="DBNavigator.Project.DatabaseConsoleManager">
     <connection id="f1a9a5c3-c498-4ac1-9f5e-455830b5330c">
-      <console name="Connection" type="STANDARD" schema="main" session="Main" />
+      <console name="Connection" type="STANDARD" schema="main" session="Main"><![CDATA[drop table blocks;
+drop table transactions;
+drop table logs;]]></console>
     </connection>
   </component>
   <component name="DBNavigator.Project.DatabaseFileManager">
