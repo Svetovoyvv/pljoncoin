@@ -67,6 +67,19 @@ services:
       - "traefik.http.routers.kibana-http.service=kibana"
       - "traefik.http.routers.kibana-http.middlewares=auth@docker"
       - "traefik.http.services.kibana.loadbalancer.server.port=5601"
+  portainer:
+    container_name: portainer
+    image: portainer/portainer-ce:latest
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - /home/portiner/data:/data
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.portainer-http.entrypoints=http"
+      - "traefik.http.routers.portainer-http.rule=Host(`portainer.it-apostol.ru`)"
+      - "traefik.http.routers.portainer-http.service=portainer"
+      - "traefik.http.routers.portainer-http.middlewares=auth"
+      - "traefik.http.services.portainer.loadbalancer.server.port=9000"
   traefik:
     container_name: traefik
     build: ./traefik/

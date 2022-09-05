@@ -34,8 +34,11 @@ async def admin_history(request: Request, user: User = Depends(get_authorized),
         page = 1
     if not user.is_admin:
         return RedirectResponse(url='/')
-    return render_template('admin_history.html', user=user, request=request,
-                           logs=LogEntryCRUD.get_history(db, user_id, (page - 1) * 10, 10, False), page=page)
+    return render_template('admin_history.html',
+                           user=user,
+                           request=request,
+                           logs=LogEntryCRUD.get_history(db, user_id, (page - 1) * 10, 10, False),
+                           page=page)
 
 @router.get('/admin/search/{block_id}', response_class=HTMLResponse, summary='Отображение страницы поиска блока')
 async def admin_search(request: Request, user: User = Depends(get_authorized), block_id: int = Path(..., description='ID блока')):
