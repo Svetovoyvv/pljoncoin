@@ -47,6 +47,7 @@ services:
     environment:
       - xpack.security.enabled=false
       - discovery.type=single-node
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
   filebeat:
     container_name: filebeat
     image: elastic/filebeat:8.4.0
