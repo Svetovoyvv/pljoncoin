@@ -29,12 +29,13 @@ async def admin_index(request: Request, user: User = Depends(get_authorized),
 async def admin_history(request: Request, user: User = Depends(get_authorized),
                         db: Session = Depends(get_db),
                         user_id: int = Path(..., description='ID пользователя'),
-                        limit: int = Query(10, description='Ограничение количества записей в ответе'),
-                        offset: int = Query(0, description='Сдвиг от начала')):
+                        page: int = Query(1, description='Номер страницы')):
+    if page < 1:
+        page = 1
     if not user.is_admin:
         return RedirectResponse(url='/')
     return render_template('admin_history.html', user=user, request=request,
-                           logs=LogEntryCRUD.get_history(db, user_id, offset, limit, False))
+                           logs=LogEntryCRUD.get_history(db, user_id, (page - 1) * 10, 10, False), page=page)
 
 @router.get('/admin/search/{block_id}', response_class=HTMLResponse, summary='Отображение страницы поиска блока')
 async def admin_search(request: Request, user: User = Depends(get_authorized), block_id: int = Path(..., description='ID блока')):
