@@ -78,7 +78,6 @@ services:
       - "traefik.http.routers.portainer-http.entrypoints=http"
       - "traefik.http.routers.portainer-http.rule=Host(`portainer.it-apostol.ru`)"
       - "traefik.http.routers.portainer-http.service=portainer"
-      - "traefik.http.routers.portainer-http.middlewares=auth"
       - "traefik.http.services.portainer.loadbalancer.server.port=9000"
   traefik:
     container_name: traefik
