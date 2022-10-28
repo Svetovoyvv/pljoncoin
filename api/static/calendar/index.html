@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<!-- meta block -->
+		<title>Calendar with date range - DHTMLX Calendar</title>
+		<meta name="description" content="">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" charset="utf-8">
+		
+		<!-- end meta block -->
+		<script type="text/javascript" src="codebase/calendar.js?v=7.3.5"></script>
+		<link rel="stylesheet" href="codebase/calendar.css?v=7.3.5">
+		<!-- custom sample head -->
+	</head>
+	<body>
+		<section class="dhx_sample-container">
+			<div id="calendar" style="padding: 20px; margin: auto;"></div>
+		</section>
+		<script>
+			const firstDate = new Date();
+			const secondDate = new Date(Date.now() + 1000000000);
+
+			const calendar = new dhx.Calendar("calendar", {
+				css: "dhx_widget--bordered",
+				range: true,
+				value: [firstDate, secondDate]
+			});
+		</script>
+	</body>
+</html>

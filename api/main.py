@@ -6,6 +6,12 @@ from cache import cache
 from utils import get_crypt_course_online, get_usd_course_online
 
 from models.user import User
+from models.block import Block
+from models.transaction import Transaction
+from models.log import LogEntry
+
+
+
 Base.metadata.create_all(bind=engine)
 cache.set('course', get_crypt_course_online)
 cache.set('usd', get_usd_course_online)

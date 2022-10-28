@@ -17,7 +17,7 @@
     <header>
         <ul class="nav">
             <li class="logo">
-                <a href="">
+                <a href="/">
                     <img src="/static/img/логотип.svg" alt="" class="logo">
                     <span class="logo">pljoncoin</span>
                 </a>
@@ -53,15 +53,15 @@
                 </thead>
                 <tbody>
                     {% for u in users %}
-                    <tr class="table_row">
-                        <td>{{ u.username }} ({{ u.id }})</td>
-                        <td>{{ u.email }}</td>
-                        <td>{{ u.register_date.date() }}</td>
-                        <td class="{{ "not_" if not u.is_admin else "" }}admin"></td>
-                        <td class="history">
-                            <button class="history_button">История</button>
-                        </td>
-                    </tr>
+                        <tr class="table_row">
+                            <td>{{ u.username }} ({{ u.id }})</td>
+                            <td>{{ u.email }}</td>
+                            <td>{{ u.register_date.date() }}</td>
+                            <td class="{{ "not_" if not u.is_admin else "" }}admin"></td>
+                            <td class="history">
+                                <button class="history_button" link="/admin/history/{{ u.id }}">История</button>
+                            </td>
+                        </tr>
                     {% endfor %}
                 </tbody>
             </table>

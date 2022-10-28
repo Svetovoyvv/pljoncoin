@@ -1,0 +1,15 @@
+setup:
+  kibana:
+    host: http://kibana:5601
+
+output:
+  elasticsearch:
+    hosts: ["elasticsearch:9200"]
+
+filebeat.inputs:
+  - type: log
+    paths: 
+      - /logs/traefik/access.log*
+    json:
+      ignore_decoding_error: false
+

@@ -9,7 +9,7 @@ services:
       - MYSQL_DATABASE=test
     restart: always
     volumes:
-      - ./base/mysql:/var/lib/mysql
+      - /home/base/mysql:/var/lib/mysql
 
   app:
     container_name: app
@@ -41,6 +41,46 @@ services:
       - "traefik.http.routers.app-docs.middlewares=auth"
       - "traefik.http.routers.app-docs.service=app"
       - "traefik.http.services.app-docs.loadbalancer.server.port=8080"
+  elasticsearch:
+    container_name: elasticsearch
+    image: elasticsearch:8.4.0
+    environment:
+      - xpack.security.enabled=false
+      - discovery.type=single-node
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+  filebeat:
+    container_name: filebeat
+    image: elastic/filebeat:8.4.0
+    volumes:
+      - /home/traefik/logs:/logs/traefik
+      - ./filebeat/filebeat.yml:/usr/share/filebeat/filebeat.yml
+      - ./filebeat/data:/data
+  kibana:
+    container_name: kibana
+    image: kibana:8.4.0
+    depends_on:
+      - elasticsearch
+    environment:
+      - ELASTICSEARCH_URL=http://elasticsearch:9200
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.kibana-http.entrypoints=http"
+      - "traefik.http.routers.kibana-http.rule=Host(`kibana.it-apostol.ru`)"
+      - "traefik.http.routers.kibana-http.service=kibana"
+      - "traefik.http.routers.kibana-http.middlewares=auth@docker"
+      - "traefik.http.services.kibana.loadbalancer.server.port=5601"
+  portainer:
+    container_name: portainer
+    image: portainer/portainer-ce:latest
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - /home/portiner/data:/data
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.portainer-http.entrypoints=http"
+      - "traefik.http.routers.portainer-http.rule=Host(`portainer.it-apostol.ru`)"
+      - "traefik.http.routers.portainer-http.service=portainer"
+      - "traefik.http.services.portainer.loadbalancer.server.port=9000"
   traefik:
     container_name: traefik
     build: ./traefik/
@@ -50,8 +90,9 @@ services:
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       - ./traefik/traefik.yml:/traefik.yml:ro
-      - ./traefik/auth.htpasswd:/auth.htpasswd:ro
-      - ./traefik/acme.json:/acme.json
+      - /home/traefik/auth.htpasswd:/auth.htpasswd:ro
+      - /home/traefik/acme.json:/acme.json
+      - /home/traefik/logs:/logs/traefik
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.traefik.entrypoints=http"

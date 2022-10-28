@@ -52,3 +52,9 @@ $(function(){
     })
 
 })
+$(function(){
+    $('#search_button').click(function(){
+        let search = $('#search_text').val();
+        window.location.href = `/search/${search}`;
+    })
+})

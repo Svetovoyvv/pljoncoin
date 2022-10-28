@@ -14,7 +14,7 @@ while True:
     try:
         engine = create_engine(
             db_url,
-            echo=True,
+            echo=os.environ.get('SQL_ECHO') == 'true',
             connect_args=connect_args
         )
         engine.connect()

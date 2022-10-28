@@ -1,5 +1,5 @@
 import requests
-
+import functools
 def format_int(x: int) -> str:
     return '{:,}'.format(x).replace(',', '\'')
 
@@ -24,3 +24,13 @@ def get_usd_course_online() -> float:
         return 0
     return float(t['Valute']['USD']['Value'])
 
+@functools.lru_cache()
+def get_btc_block_transactions(block_id: int) -> list[str] | None:
+    try:
+        r = requests.get(f'https://chain.so/api/v2/get_block/BTC/{block_id}').json()
+        assert r['status'] == 'success'
+    except requests.exceptions.RequestException:
+        return None
+    except AssertionError:
+        return []
+    return r['data']['txs']

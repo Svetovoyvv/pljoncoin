@@ -9,14 +9,21 @@ entrypoints:
     address: ":80"
   https:
     address: ":443"
-log:
-  level: DEBUG
+#log:
+#  level: DEBUG
 certificatesResolvers:
   letsencrypt:
     acme:
       email: svetovoyvv@yandex.ru
-      storage: acme.json
+      storage: /acme.json
       caServer: "https://acme-staging-v02.api.letsencrypt.org/directory"
       httpChallenge:
         entryPoint: http
+accessLog:
+  filePath: /logs/traefik/access.log
+  format: json
+  fields:
+    defaultMode: keep
+    headers:
+      defaultMode: keep
 
