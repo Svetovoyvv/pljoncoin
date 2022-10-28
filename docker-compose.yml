@@ -1,5 +1,10 @@
 version: "3.9"
-
+# Разработано командой IT-APOSTOL
+# Авторы:
+# Световой Владислав
+# фронты π******
+# Отдельная благодраность
+# Батурин Антон Сергеевич https://vk.com/antontvimka PM, тестировщик
 services:
   base:
     container_name: base
